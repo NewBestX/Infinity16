@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="641.2011754068717" y="1964.0">pizzashop.gui.OrdersGUI</node>
+    <node x="194.26808318264023" y="181.0">pizzashop.model.MenuDataModel</node>
+    <node x="859.8125" y="0.0">pizzashop.model.PaymentType</node>
+    <node x="503.7323688969259" y="780.5">pizzashop.service.PaymentOperation</node>
+    <node x="206.42201627486446" y="984.0">pizzashop.controller.KitchenGUIController</node>
+    <node x="699.7323688969259" y="735.0">pizzashop.service.PizzaService</node>
+    <node x="375.9823688969259" y="1307.0">pizzashop.controller.OrdersGUIController</node>
+    <node x="902.9198688969259" y="496.0">pizzashop.repository.PaymentRepository</node>
+    <node x="501.7323688969259" y="1027.5">pizzashop.service.PaymentAlert</node>
+    <node x="0.0" y="2346.5">pizzashop.gui.KitchenGUI</node>
+    <node x="833.1095162748645" y="236.5">pizzashop.model.Payment</node>
+    <node x="796.6073688969259" y="2114.0">pizzashop.controller.MainGUIController</node>
+    <node x="198.92201627486452" y="507.0">pizzashop.repository.MenuRepository</node>
+    <node x="864.8573688969259" y="2713.0">pizzashop.Main</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="pizzashop.service.PizzaService" target="pizzashop.model.PaymentType">
+      <point x="-20.0" y="-94.5" />
+      <point x="839.7323688969259" y="715.0" />
+      <point x="822.6095162748645" y="715.0" />
+      <point x="822.6095162748645" y="151.0" />
+      <point x="910.0625" y="151.0" />
+      <point x="-50.25" y="60.5" />
+    </edge>
+    <edge source="pizzashop.service.PizzaService" target="pizzashop.model.Payment">
+      <point x="20.0" y="-94.5" />
+      <point x="879.7323688969259" y="715.0" />
+      <point x="871.6720162748645" y="715.0" />
+      <point x="871.6720162748645" y="476.0" />
+      <point x="857.1095162748645" y="476.0" />
+      <point x="-96.0" y="72.0" />
+    </edge>
+    <edge source="pizzashop.service.PizzaService" target="pizzashop.model.MenuDataModel">
+      <point x="-60.0" y="-94.5" />
+      <point x="799.7323688969259" y="715.0" />
+      <point x="791.9511754068717" y="715.0" />
+      <point x="791.9511754068717" y="456.0" />
+      <point x="446.8395117540688" y="456.0" />
+      <point x="116.57142857142856" y="127.5" />
+    </edge>
+    <edge source="pizzashop.repository.MenuRepository" target="pizzashop.model.MenuDataModel">
+      <point x="-84.33333333333326" y="-83.5" />
+      <point x="241.08868294153126" y="476.0" />
+      <point x="291.41094032549734" y="476.0" />
+      <point x="-38.85714285714289" y="127.5" />
+    </edge>
+    <edge source="pizzashop.gui.OrdersGUI" target="pizzashop.controller.OrdersGUIController">
+      <point x="-83.0" y="-50.0" />
+      <point x="682.7011754068717" y="1939.0" />
+      <point x="521.9823688969259" y="1939.0" />
+      <point x="0.0" y="303.5" />
+    </edge>
+    <edge source="pizzashop.service.PaymentAlert" target="pizzashop.model.PaymentType">
+      <point x="-90.0" y="-83.0" />
+      <point x="531.7323688969259" y="964.0" />
+      <point x="493.2323688969259" y="964.0" />
+      <point x="493.2323688969259" y="141.0" />
+      <point x="876.5625" y="141.0" />
+      <point x="-83.75" y="60.5" />
+    </edge>
+    <edge source="pizzashop.Main" target="pizzashop.model.PaymentType">
+      <point x="67.49999999999997" y="-38.0" />
+      <point x="1007.3573688969259" y="2693.0" />
+      <point x="1114.419868896926" y="2693.0" />
+      <point x="1114.419868896926" y="141.0" />
+      <point x="1044.0625" y="141.0" />
+      <point x="83.75" y="60.5" />
+    </edge>
+    <edge source="pizzashop.model.Payment" target="pizzashop.model.PaymentType">
+      <point x="-60.0" y="-72.0" />
+      <point x="893.1095162748645" y="161.0" />
+      <point x="943.5625" y="161.0" />
+      <point x="-16.75" y="60.5" />
+    </edge>
+    <edge source="pizzashop.gui.OrdersGUI" target="pizzashop.service.PizzaService">
+      <point x="83.0" y="-50.0" />
+      <point x="848.7011754068717" y="1939.0" />
+      <point x="867.125" y="1939.0" />
+      <point x="867.125" y="964.0" />
+      <point x="875.7323688969259" y="964.0" />
+      <point x="16.0" y="94.5" />
+    </edge>
+    <edge source="pizzashop.repository.PaymentRepository" target="pizzashop.model.PaymentType">
+      <point x="75.375" y="-94.5" />
+      <point x="1078.794868896926" y="476.0" />
+      <point x="1101.232368896926" y="476.0" />
+      <point x="1101.232368896926" y="151.0" />
+      <point x="1010.5625" y="151.0" />
+      <point x="50.25" y="60.5" />
+    </edge>
+    <edge source="pizzashop.controller.OrdersGUIController" target="pizzashop.controller.KitchenGUIController">
+      <point x="-54.75" y="-303.5" />
+      <point x="467.2323688969259" y="1267.0" />
+      <point x="325.42201627486446" y="1267.0" />
+      <point x="0.0" y="126.5" />
+    </edge>
+    <edge source="pizzashop.service.PizzaService" target="pizzashop.repository.MenuRepository">
+      <point x="-140.0" y="-94.5" />
+      <point x="719.7323688969259" y="715.0" />
+      <point x="357.0470162748645" y="715.0" />
+      <point x="31.625" y="83.5" />
+    </edge>
+    <edge source="pizzashop.controller.OrdersGUIController" target="pizzashop.service.PaymentAlert">
+      <point x="18.25" y="-303.5" />
+      <point x="540.2323688969259" y="1287.0" />
+      <point x="561.7323688969259" y="1287.0" />
+      <point x="-60.0" y="83.0" />
+    </edge>
+    <edge source="pizzashop.Main" target="pizzashop.gui.KitchenGUI">
+      <point x="-67.5" y="-38.0" />
+      <point x="872.3573688969259" y="2693.0" />
+      <point x="35.75" y="2693.0" />
+      <point x="-35.75" y="27.0" />
+    </edge>
+    <edge source="pizzashop.Main" target="pizzashop.repository.PaymentRepository">
+      <point x="52.49999999999997" y="-38.0" />
+      <point x="992.3573688969259" y="2683.0" />
+      <point x="1084.1386754068717" y="2683.0" />
+      <point x="1084.1386754068717" y="715.0" />
+      <point x="1078.794868896926" y="715.0" />
+      <point x="75.375" y="94.5" />
+    </edge>
+    <edge source="pizzashop.service.PaymentAlert" target="pizzashop.service.PaymentOperation">
+      <point x="-30.0" y="-83.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="pizzashop.controller.MainGUIController" target="pizzashop.gui.OrdersGUI">
+      <point x="-69.0" y="-259.5" />
+      <point x="819.6073688969259" y="2089.0" />
+      <point x="703.4511754068717" y="2089.0" />
+      <point x="-62.25" y="50.0" />
+    </edge>
+    <edge source="pizzashop.Main" target="pizzashop.service.PizzaService">
+      <point x="22.5" y="-38.0" />
+      <point x="962.3573688969259" y="2663.0" />
+      <point x="1002.1073688969259" y="2663.0" />
+      <point x="1002.1073688969259" y="964.0" />
+      <point x="1003.7323688969259" y="964.0" />
+      <point x="143.99999999999997" y="94.5" />
+    </edge>
+    <edge source="pizzashop.controller.OrdersGUIController" target="pizzashop.model.MenuDataModel">
+      <point x="-18.25" y="-303.5" />
+      <point x="503.7323688969259" y="1257.0" />
+      <point x="462.42201627486446" y="1257.0" />
+      <point x="462.42201627486446" y="466.0" />
+      <point x="407.9823688969259" y="466.0" />
+      <point x="77.71428571428567" y="127.5" />
+    </edge>
+    <edge source="pizzashop.service.PaymentAlert" target="pizzashop.service.PizzaService">
+      <point x="30.0" y="-83.0" />
+      <point x="651.7323688969259" y="954.0" />
+      <point x="715.7323688969259" y="954.0" />
+      <point x="-144.0" y="94.5" />
+    </edge>
+    <edge source="pizzashop.service.PizzaService" target="pizzashop.repository.PaymentRepository">
+      <point x="100.0" y="-94.5" />
+      <point x="959.7323688969259" y="715.0" />
+      <point x="928.0448688969259" y="715.0" />
+      <point x="-75.375" y="94.5" />
+    </edge>
+    <edge source="pizzashop.controller.OrdersGUIController" target="pizzashop.service.PizzaService">
+      <point x="127.75" y="-303.5" />
+      <point x="649.7323688969259" y="1287.0" />
+      <point x="779.4061934900543" y="1287.0" />
+      <point x="779.4061934900543" y="954.0" />
+      <point x="811.7323688969259" y="954.0" />
+      <point x="-48.0" y="94.5" />
+    </edge>
+    <edge source="pizzashop.Main" target="pizzashop.repository.MenuRepository">
+      <point x="-22.5" y="-38.0" />
+      <point x="917.3573688969259" y="2663.0" />
+      <point x="164.5" y="2663.0" />
+      <point x="164.5" y="715.0" />
+      <point x="293.7970162748645" y="715.0" />
+      <point x="-31.625" y="83.5" />
+    </edge>
+    <edge source="pizzashop.controller.MainGUIController" target="pizzashop.service.PizzaService">
+      <point x="69.0" y="-259.5" />
+      <point x="957.6073688969259" y="2089.0" />
+      <point x="954.2345162748645" y="2089.0" />
+      <point x="954.2345162748645" y="964.0" />
+      <point x="939.7323688969259" y="964.0" />
+      <point x="80.0" y="94.5" />
+    </edge>
+    <edge source="pizzashop.Main" target="pizzashop.controller.MainGUIController">
+      <point x="-7.5" y="-38.0" />
+      <point x="932.3573688969259" y="2653.0" />
+      <point x="888.6073688969259" y="2653.0" />
+      <point x="0.0" y="259.5" />
+    </edge>
+    <edge source="pizzashop.repository.PaymentRepository" target="pizzashop.model.Payment">
+      <point x="-75.375" y="-94.5" />
+      <point x="928.0448688969259" y="476.0" />
+      <point x="953.1095162748645" y="476.0" />
+      <point x="0.0" y="72.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8771428571428571" x="544.0357478792523" y="237.34522897106729" />
+  <SelectedNodes>
+    <node>pizzashop.service.PaymentAlert</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
