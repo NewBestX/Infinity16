@@ -14,7 +14,7 @@ import pizzashop.service.PaymentsService;
 import java.io.IOException;
 
 
-public class OrdersGUI {
+public class TableGUI {
 
     protected int tableNumber;
     public int getTableNumber() {

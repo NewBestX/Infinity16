@@ -2,26 +2,16 @@ package pizzashop.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import  javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
-import javafx.scene.text.FontWeight;
-import pizzashop.gui.OrdersGUI;
+import pizzashop.gui.TableGUI;
 import pizzashop.service.MenuService;
 import pizzashop.service.PaymentsService;
-
-
-import static javafx.scene.paint.Color.DARKBLUE;
 
 
 public class MainGUIController  {
@@ -44,14 +34,14 @@ public class MainGUIController  {
     @FXML
     private MenuItem help;
 
-    OrdersGUI table1Orders = new OrdersGUI();
-    OrdersGUI  table2Orders = new OrdersGUI();
-    OrdersGUI  table3Orders = new OrdersGUI();
-    OrdersGUI  table4Orders = new OrdersGUI();
-    OrdersGUI  table5Orders = new OrdersGUI();
-    OrdersGUI  table6Orders = new OrdersGUI();
-    OrdersGUI  table7Orders = new OrdersGUI();
-    OrdersGUI  table8Orders = new OrdersGUI();
+    TableGUI table1Orders = new TableGUI();
+    TableGUI table2Orders = new TableGUI();
+    TableGUI table3Orders = new TableGUI();
+    TableGUI table4Orders = new TableGUI();
+    TableGUI table5Orders = new TableGUI();
+    TableGUI table6Orders = new TableGUI();
+    TableGUI table7Orders = new TableGUI();
+    TableGUI table8Orders = new TableGUI();
 
     private MenuService menuService;
     private PaymentsService paymentsService;
