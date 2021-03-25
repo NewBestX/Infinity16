@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import pizzashop.gui.ExceptionAlert;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,11 +25,11 @@ public class KitchenGUIController {
 
     public static ObservableList<String> order = FXCollections.observableArrayList();
     private Object selectedOrder;
-    private Calendar now = Calendar.getInstance();
     private String extractedTableNumberString = new String();
     private int extractedTableNumberInteger;
 
     private final ScheduledExecutorService orderExecutor = Executors.newSingleThreadScheduledExecutor();
+    private static final SimpleDateFormat hourFormat  = new SimpleDateFormat("HH:mm");
 
     public void shutDownExecutor() {
         orderExecutor.shutdown();
@@ -55,7 +56,7 @@ public class KitchenGUIController {
             kitchenOrdersList.getItems().remove(selectedOrder);
             kitchenOrdersList.getItems().add(selectedOrder.toString()
                     .concat(" Cooking started at: ").toUpperCase()
-                    .concat(now.get(Calendar.HOUR) + ":" + now.get(Calendar.MINUTE)));
+                    .concat(hourFormat.format(Calendar.getInstance().getTime())));
         });
         //Controller for Ready Button
         ready.setOnAction(event -> {
@@ -68,7 +69,7 @@ public class KitchenGUIController {
             extractedTableNumberString = selectedOrder.toString().subSequence(5, 6).toString();
             extractedTableNumberInteger = Integer.valueOf(extractedTableNumberString);
             System.out.println("--------------------------");
-            System.out.println("Table " + extractedTableNumberInteger + " ready at: " + now.get(Calendar.HOUR) + ":" + now.get(Calendar.MINUTE));
+            System.out.println("Table " + extractedTableNumberInteger + " ready at: " + hourFormat.format(Calendar.getInstance().getTime()));
             System.out.println("--------------------------");
         });
     }

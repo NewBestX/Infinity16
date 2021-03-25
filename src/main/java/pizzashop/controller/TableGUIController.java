@@ -15,6 +15,7 @@ import pizzashop.gui.payment.PaymentAlert;
 import pizzashop.service.PaymentsService;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -66,8 +67,8 @@ public class TableGUIController {
     public ObservableList<String> observableList;
     private TableView<MenuDataModel> table = new TableView<MenuDataModel>();
     private ObservableList<MenuDataModel> menuData;// = FXCollections.observableArrayList();
-    private Calendar now = Calendar.getInstance();
     private static double totalAmount;
+    private static final SimpleDateFormat hourFormat  = new SimpleDateFormat("HH:mm");
 
     public TableGUIController() {
         state = null;
@@ -92,7 +93,7 @@ public class TableGUIController {
                     .collect(Collectors.toList());
             observableList = FXCollections.observableList(orderList);
             KitchenGUIController.order.add("Table" + tableNumber + " " + orderList.toString());
-            orderStatus.setText("Order placed at: " + now.get(Calendar.HOUR) + ":" + now.get(Calendar.MINUTE));
+            orderStatus.setText("Order placed at: " + hourFormat.format(Calendar.getInstance().getTime()));
             state = TableState.ORDER_PLACED;
         });
 
@@ -102,7 +103,7 @@ public class TableGUIController {
                 ExceptionAlert.showExceptionAlert("No order placed");
                 return;
             }
-            orderStatus.setText("Served at: " + now.get(Calendar.HOUR) + ":" + now.get(Calendar.MINUTE));
+            orderStatus.setText("Served at: " + hourFormat.format(Calendar.getInstance().getTime()));
             state = TableState.ORDER_SERVED;
         });
 
