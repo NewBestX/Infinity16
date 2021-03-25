@@ -1,8 +1,9 @@
-package pizzashop.service;
+package pizzashop.gui.payment;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import pizzashop.model.PaymentType;
+import pizzashop.service.PaymentsService;
 
 import java.util.Optional;
 

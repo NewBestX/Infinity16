@@ -1,4 +1,4 @@
-package pizzashop.service;
+package pizzashop.gui.payment;
 
 public interface PaymentOperation {
      void cardPayment();
