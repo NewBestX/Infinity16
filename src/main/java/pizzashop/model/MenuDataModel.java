@@ -9,10 +9,10 @@ public class MenuDataModel {
     private final SimpleIntegerProperty quantity;
     private final SimpleDoubleProperty price;
 
-    public MenuDataModel(String mItem, Integer mQuantity, Double mPrice) {
-        this.menuItem = new SimpleStringProperty(mItem);
-        this.quantity = new SimpleIntegerProperty(mQuantity);
-        this.price = new SimpleDoubleProperty(mPrice);
+    public MenuDataModel(String menuItem, Integer quantity, Double price) {
+        this.menuItem = new SimpleStringProperty(menuItem);
+        this.quantity = new SimpleIntegerProperty(quantity);
+        this.price = new SimpleDoubleProperty(price);
     }
 
     public String getMenuItem() {
