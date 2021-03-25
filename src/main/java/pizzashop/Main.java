@@ -10,6 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import pizzashop.controller.MainGUIController;
+import pizzashop.gui.ExceptionAlert;
 import pizzashop.gui.KitchenGUI;
 import pizzashop.model.PaymentType;
 import pizzashop.repository.MenuRepository;
@@ -21,6 +22,8 @@ import pizzashop.service.PaymentsService;
 import java.util.Optional;
 
 public class Main extends Application {
+
+    KitchenGUI kitchenGUI;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -41,6 +44,11 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
+                if(kitchenGUI.isOpen()) {
+                    ExceptionAlert.showExceptionAlert("Kitchen is not closed");
+                    event.consume();
+                    return;
+                }
                 Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to exit the Main window?", ButtonType.YES, ButtonType.NO);
                 Optional<ButtonType> result = exitAlert.showAndWait();
                 if (result.get() == ButtonType.YES){
@@ -63,8 +71,7 @@ public class Main extends Application {
         });
         primaryStage.setScene(new Scene(box));
         primaryStage.show();
-        KitchenGUI kitchenGUI = new KitchenGUI();
-        kitchenGUI.KitchenGUI();
+        kitchenGUI = new KitchenGUI();
     }
 
     public static void main(String[] args) { launch(args);

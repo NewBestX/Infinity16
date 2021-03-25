@@ -189,6 +189,7 @@ public class TableGUIController {
             if (result.get() == ButtonType.YES) {
                 Stage stage = (Stage) newOrder.getScene().getWindow();
                 stage.close();
+                MainGUIController.tableClosed();
             }
         });
     }

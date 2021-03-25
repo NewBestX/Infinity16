@@ -56,6 +56,7 @@ public class MainGUIController  {
     private MenuService menuService;
     private PaymentsService paymentsService;
 
+    private static int openTableCount = 0;
 
     public MainGUIController(){}
 
@@ -69,36 +70,43 @@ public class MainGUIController  {
         table1.setOnAction(event -> {
             table1Orders.setTableNumber(1);
             table1Orders.displayOrdersForm(menuService, paymentsService);
+            openTableCount++;
         });
         table2.setOnAction(event -> {
             table2Orders.setTableNumber(2);
             table2Orders.displayOrdersForm(menuService, paymentsService);
+            openTableCount++;
         });
         table3.setOnAction(event -> {
             table3Orders.setTableNumber(3);
             table3Orders.displayOrdersForm(menuService, paymentsService);
+            openTableCount++;
         });
         table4.setOnAction(event -> {
             table4Orders.setTableNumber(4);
             table4Orders.displayOrdersForm(menuService, paymentsService);
+            openTableCount++;
         });
         table5.setOnAction(event -> {
             table5Orders.setTableNumber(5);
             table5Orders.displayOrdersForm(menuService, paymentsService);
+            openTableCount++;
         });
         table6.setOnAction(event -> {
             table6Orders.setTableNumber(6);
             table6Orders.displayOrdersForm(menuService, paymentsService);
+            openTableCount++;
         });
         table7.setOnAction(event -> {
             table7Orders.setTableNumber(7);
             table7Orders.displayOrdersForm(menuService, paymentsService);
+            openTableCount++;
         });
         table8.setOnAction(event -> {
             table8Orders.setTableNumber(8);
             table8Orders.displayOrdersForm(menuService, paymentsService);
+            openTableCount++;
         });
-
     }
 
 
@@ -133,5 +141,13 @@ public class MainGUIController  {
             stage.setResizable(false);
             stage.showAndWait();
              });
+    }
+
+    public static void tableClosed() {
+        openTableCount--;
+    }
+
+    public static int getOpenTableCount() {
+        return openTableCount;
     }
 }
