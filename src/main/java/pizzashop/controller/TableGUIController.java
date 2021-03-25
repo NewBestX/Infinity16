@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import pizzashop.exceptions.SelectionException;
 import pizzashop.gui.ExceptionAlert;
 import pizzashop.model.MenuDataModel;
 import pizzashop.service.MenuService;
@@ -21,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class OrdersGUIController {
+public class TableGUIController {
 
     @FXML
     private ComboBox<Integer> orderQuantity;
@@ -50,6 +49,7 @@ public class OrdersGUIController {
 
     private List<String> orderList = FXCollections.observableArrayList();
     private List<Double> orderPaymentList = FXCollections.observableArrayList();
+    private TableState state;
 
     public static double getTotalAmount() {
         return totalAmount;
@@ -69,7 +69,8 @@ public class OrdersGUIController {
     private Calendar now = Calendar.getInstance();
     private static double totalAmount;
 
-    public OrdersGUIController() {
+    public TableGUIController() {
+        state = null;
     }
 
     private void initData() {
@@ -79,6 +80,11 @@ public class OrdersGUIController {
 
         //Controller for Place Order Button
         placeOrder.setOnAction(event -> {
+            if(state != TableState.ORDERING){
+                ExceptionAlert.showExceptionAlert("No pizza added to order");
+                return;
+            }
+
             orderTable.getSelectionModel().clearSelection();
             orderList = menuData.stream()
                     .filter(x -> x.getQuantity() > 0)
@@ -87,15 +93,25 @@ public class OrdersGUIController {
             observableList = FXCollections.observableList(orderList);
             KitchenGUIController.order.add("Table" + tableNumber + " " + orderList.toString());
             orderStatus.setText("Order placed at: " + now.get(Calendar.HOUR) + ":" + now.get(Calendar.MINUTE));
+            state = TableState.ORDER_PLACED;
         });
 
         //Controller for Order Served Button
         orderServed.setOnAction(event -> {
+            if(state != TableState.ORDER_PLACED) {
+                ExceptionAlert.showExceptionAlert("No order placed");
+                return;
+            }
             orderStatus.setText("Served at: " + now.get(Calendar.HOUR) + ":" + now.get(Calendar.MINUTE));
+            state = TableState.ORDER_SERVED;
         });
 
         //Controller for Pay Order Button
         payOrder.setOnAction(event -> {
+            if(state != TableState.ORDER_SERVED) {
+                ExceptionAlert.showExceptionAlert("The order has not been served");
+                return;
+            }
             orderPaymentList = menuData.stream()
                     .filter(x -> x.getQuantity() > 0)
                     .map(menuDataModel -> menuDataModel.getQuantity() * menuDataModel.getPrice())
@@ -107,7 +123,8 @@ public class OrdersGUIController {
             System.out.println("Total: " + getTotalAmount());
             System.out.println("--------------------------");
             PaymentAlert pay = new PaymentAlert(paymentsService);
-            pay.showPaymentAlert(tableNumber, this.getTotalAmount());
+            if(pay.showPaymentAlert(tableNumber, this.getTotalAmount()))
+                state = TableState.ORDER_PAID;
         });
     }
 
@@ -138,6 +155,10 @@ public class OrdersGUIController {
 
         //Controller for Add to order Button
         addToOrder.setOnAction(event -> {
+            if(state == TableState.ORDER_PAID){
+                ExceptionAlert.showExceptionAlert("Comanda a fost deja achitata.");
+                return;
+            }
             if (orderTable.getSelectionModel().isEmpty()) {
                 ExceptionAlert.showExceptionAlert("No pizza selected");
                 return;
@@ -146,6 +167,8 @@ public class OrdersGUIController {
                 ExceptionAlert.showExceptionAlert("No quantity selected");
                 return;
             }
+            state = TableState.ORDERING;
+
             orderTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MenuDataModel>() {
                 @Override
                 public void changed(ObservableValue<? extends MenuDataModel> observable, MenuDataModel oldValue, MenuDataModel newValue) {
@@ -157,6 +180,10 @@ public class OrdersGUIController {
 
         //Controller for Exit table Button
         newOrder.setOnAction(event -> {
+            if(state != TableState.ORDER_PAID && state != null) {
+                ExceptionAlert.showExceptionAlert("Order was not paid");
+                return;
+            }
             Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION, "Exit table?", ButtonType.YES, ButtonType.NO);
             Optional<ButtonType> result = exitAlert.showAndWait();
             if (result.get() == ButtonType.YES) {
@@ -173,4 +200,8 @@ public class OrdersGUIController {
         initData();
 
     }
+}
+
+enum TableState {
+    ORDERING, ORDER_PLACED, ORDER_SERVED, ORDER_PAID
 }

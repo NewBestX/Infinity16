@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import pizzashop.controller.OrdersGUIController;
+import pizzashop.controller.TableGUIController;
 import pizzashop.service.MenuService;
 import pizzashop.service.PaymentsService;
 
@@ -30,7 +30,7 @@ public class OrdersGUI {
 
             //vBoxOrders = FXMLLoader.load(getClass().getResource("/fxml/OrdersGUIFXML.fxml"));
             vBoxOrders = loader.load();
-            OrdersGUIController ordersCtrl= loader.getController();
+            TableGUIController ordersCtrl= loader.getController();
             ordersCtrl.setService(menuService, paymentsService, tableNumber);
 
         } catch (IOException e) {
