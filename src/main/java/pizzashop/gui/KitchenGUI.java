@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.WindowEvent;
+import pizzashop.controller.KitchenGUIController;
 import pizzashop.controller.MainGUIController;
 
 import java.io.IOException;
@@ -17,12 +18,15 @@ import java.util.Optional;
 public class KitchenGUI {
 
     private boolean isOpen;
+    private  KitchenGUIController kitchenGUIController;
 
     public KitchenGUI() {
         VBox vBoxKitchen = null;
 
         try {
-            vBoxKitchen = FXMLLoader.load(getClass().getResource("/fxml/kitchenGUIFXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kitchenGUIFXML.fxml"));
+            vBoxKitchen = loader.load();
+             kitchenGUIController = loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,6 +47,7 @@ public class KitchenGUI {
                 if (result.get() == ButtonType.YES){
                     //Stage stage = (Stage) this.getScene().getWindow();
                     stage.close();
+                    kitchenGUIController.shutDownExecutor();
                     isOpen = false;
                 }
                 // consume event
