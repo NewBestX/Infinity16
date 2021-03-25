@@ -10,8 +10,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import pizzashop.model.MenuDataModel;
 import pizzashop.gui.OrdersGUI;
+import pizzashop.service.MenuService;
 import pizzashop.service.PaymentAlert;
-import pizzashop.service.PizzaService;
+import pizzashop.service.PaymentsService;
+
 
 import java.util.Calendar;
 import java.util.List;
@@ -54,7 +56,8 @@ public class OrdersGUIController {
         this.totalAmount = totalAmount;
     }
 
-    private PizzaService service;
+    private MenuService menuService;
+    private PaymentsService paymentsService;
     private int tableNumber;
 
     public ObservableList<String> observableList;
@@ -65,16 +68,9 @@ public class OrdersGUIController {
 
     public OrdersGUIController(){ }
 
-    public void setService(PizzaService service, int tableNumber){
-        this.service=service;
-        this.tableNumber=tableNumber;
-        initData();
-
-    }
-
     private void initData(){
-        menuData = FXCollections.observableArrayList(service.getMenuData());
-        menuData.setAll(service.getMenuData());
+        menuData = FXCollections.observableArrayList(menuService.getMenuData());
+        menuData.setAll(menuService.getMenuData());
         orderTable.setItems(menuData);
 
         //Controller for Place Order Button
@@ -104,7 +100,7 @@ public class OrdersGUIController {
             System.out.println("Table: " + tableNumber);
             System.out.println("Total: " + getTotalAmount());
             System.out.println("--------------------------");
-            PaymentAlert pay = new PaymentAlert(service);
+            PaymentAlert pay = new PaymentAlert(paymentsService);
             pay.showPaymentAlert(tableNumber, this.getTotalAmount());
         });
     }
@@ -153,5 +149,13 @@ public class OrdersGUIController {
                 stage.close();
                 }
         });
+    }
+
+    public void setService(MenuService menuService, PaymentsService paymentsService, int tableNumber) {
+        this.menuService = menuService;
+        this.paymentsService = paymentsService;
+        this.tableNumber=tableNumber;
+        initData();
+
     }
 }

@@ -7,10 +7,10 @@ import pizzashop.model.PaymentType;
 import java.util.Optional;
 
 public class PaymentAlert implements PaymentOperation {
-    private PizzaService service;
+    private PaymentsService paymentsService;
 
-    public PaymentAlert(PizzaService service){
-        this.service=service;
+    public PaymentAlert(PaymentsService paymentsService){
+        this.paymentsService=paymentsService;
     }
 
     @Override
@@ -45,10 +45,10 @@ public class PaymentAlert implements PaymentOperation {
         Optional<ButtonType> result = paymentAlert.showAndWait();
         if (result.get() == cardPayment) {
             cardPayment();
-            service.addPayment(tableNumber, PaymentType.Card,totalAmount);
+            paymentsService.addPayment(tableNumber, PaymentType.Card,totalAmount);
         } else if (result.get() == cashPayment) {
             cashPayment();
-            service.addPayment(tableNumber, PaymentType.Cash,totalAmount);
+            paymentsService.addPayment(tableNumber, PaymentType.Cash,totalAmount);
         } else if (result.get() == cancel) {
              cancelPayment();
         } else {

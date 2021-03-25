@@ -17,7 +17,9 @@ import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import javafx.scene.text.FontWeight;
 import pizzashop.gui.OrdersGUI;
-import pizzashop.service.PizzaService;
+import pizzashop.service.MenuService;
+import pizzashop.service.PaymentsService;
+
 
 import static javafx.scene.paint.Color.DARKBLUE;
 
@@ -51,47 +53,50 @@ public class MainGUIController  {
     OrdersGUI  table7Orders = new OrdersGUI();
     OrdersGUI  table8Orders = new OrdersGUI();
 
-    PizzaService service;
+    private MenuService menuService;
+    private PaymentsService paymentsService;
+
 
     public MainGUIController(){}
 
-    public void setService(PizzaService service){
-        this.service=service;
+    public void setService(MenuService menuService, PaymentsService paymentsService){
+        this.menuService=menuService;
+        this.paymentsService = paymentsService;
         tableHandlers();
     }
 
     private void tableHandlers(){
         table1.setOnAction(event -> {
             table1Orders.setTableNumber(1);
-            table1Orders.displayOrdersForm(service);
+            table1Orders.displayOrdersForm(menuService, paymentsService);
         });
         table2.setOnAction(event -> {
             table2Orders.setTableNumber(2);
-            table2Orders.displayOrdersForm(service);
+            table2Orders.displayOrdersForm(menuService, paymentsService);
         });
         table3.setOnAction(event -> {
             table3Orders.setTableNumber(3);
-            table3Orders.displayOrdersForm(service);
+            table3Orders.displayOrdersForm(menuService, paymentsService);
         });
         table4.setOnAction(event -> {
             table4Orders.setTableNumber(4);
-            table4Orders.displayOrdersForm(service);
+            table4Orders.displayOrdersForm(menuService, paymentsService);
         });
         table5.setOnAction(event -> {
             table5Orders.setTableNumber(5);
-            table5Orders.displayOrdersForm(service);
+            table5Orders.displayOrdersForm(menuService, paymentsService);
         });
         table6.setOnAction(event -> {
             table6Orders.setTableNumber(6);
-            table6Orders.displayOrdersForm(service);
+            table6Orders.displayOrdersForm(menuService, paymentsService);
         });
         table7.setOnAction(event -> {
             table7Orders.setTableNumber(7);
-            table7Orders.displayOrdersForm(service);
+            table7Orders.displayOrdersForm(menuService, paymentsService);
         });
         table8.setOnAction(event -> {
             table8Orders.setTableNumber(8);
-            table8Orders.displayOrdersForm(service);
+            table8Orders.displayOrdersForm(menuService, paymentsService);
         });
 
     }
