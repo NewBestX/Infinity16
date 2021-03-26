@@ -25,7 +25,7 @@ public class KitchenGUIController {
 
     public static ObservableList<String> order = FXCollections.observableArrayList();
     private Object selectedOrder;
-    private String extractedTableNumberString = new String();
+    private String extractedTableNumberString = "";
     private int extractedTableNumberInteger;
 
     private final ScheduledExecutorService orderExecutor = Executors.newSingleThreadScheduledExecutor();
