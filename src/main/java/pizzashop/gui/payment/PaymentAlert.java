@@ -52,9 +52,6 @@ public class PaymentAlert implements PaymentOperation {
             cashPayment();
             paymentsService.addPayment(tableNumber, PaymentType.Cash,totalAmount);
             return true;
-        } else if (result.get() == cancel) {
-             cancelPayment();
-             return false;
         } else {
             cancelPayment();
             return false;
