@@ -41,33 +41,30 @@ public class Main extends Application {
         primaryStage.setTitle("PizeriaX");
         primaryStage.setResizable(false);
         primaryStage.setAlwaysOnTop(false);
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                if(kitchenGUI.isOpen()) {
-                    ExceptionAlert.showExceptionAlert("Kitchen is not closed");
-                    event.consume();
-                    return;
-                }
-                Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to exit the Main window?", ButtonType.YES, ButtonType.NO);
-                Optional<ButtonType> result = exitAlert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.YES){
-                    //Stage stage = (Stage) this.getScene().getWindow();
-                    System.out.println("Incasari cash: "+paymentsService.getTotalAmount(PaymentType.Cash));
-                    System.out.println("Incasari card: "+paymentsService.getTotalAmount(PaymentType.Card));
+        primaryStage.setOnCloseRequest(event -> {
+            if(kitchenGUI.isOpen()) {
+                ExceptionAlert.showExceptionAlert("Kitchen is not closed");
+                event.consume();
+                return;
+            }
+            Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to exit the Main window?", ButtonType.YES, ButtonType.NO);
+            Optional<ButtonType> result = exitAlert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.YES){
+                //Stage stage = (Stage) this.getScene().getWindow();
+                System.out.println("Incasari cash: "+paymentsService.getTotalAmount(PaymentType.Cash));
+                System.out.println("Incasari card: "+paymentsService.getTotalAmount(PaymentType.Card));
 
-                    primaryStage.close();
-                }
-                // consume event
-                else if (result.isPresent() && result.get() == ButtonType.NO){
-                    event.consume();
-                }
-                else {
-                    event.consume();
-
-                }
+                primaryStage.close();
+            }
+            // consume event
+            else if (result.isPresent() && result.get() == ButtonType.NO){
+                event.consume();
+            }
+            else {
+                event.consume();
 
             }
+
         });
         primaryStage.setScene(new Scene(box));
         primaryStage.show();
