@@ -3,6 +3,8 @@ package pizzashop.service;
 import pizzashop.model.Payment;
 import pizzashop.model.PaymentType;
 import pizzashop.repository.PaymentRepository;
+import pizzashop.validator.PaymentValidator;
+import pizzashop.validator.ValidationException;
 
 import java.util.List;
 
@@ -15,8 +17,9 @@ public class PaymentsService {
 
     public List<Payment> getPayments(){return payRepo.getAll(); }
 
-    public void addPayment(int table, PaymentType type, double amount){
+    public void addPayment(int table, PaymentType type, double amount) throws ValidationException {
         Payment payment= new Payment(table, type, amount);
+        PaymentValidator.validPayment(payment);
         payRepo.add(payment);
     }
 

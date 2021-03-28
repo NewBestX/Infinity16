@@ -2,8 +2,10 @@ package pizzashop.gui.payment;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import pizzashop.gui.ExceptionAlert;
 import pizzashop.model.PaymentType;
 import pizzashop.service.PaymentsService;
+import pizzashop.validator.ValidationException;
 
 import java.util.Optional;
 
@@ -44,13 +46,23 @@ public class PaymentAlert implements PaymentOperation {
         ButtonType cancel = new ButtonType("Cancel");
         paymentAlert.getButtonTypes().setAll(cardPayment, cashPayment, cancel);
         Optional<ButtonType> result = paymentAlert.showAndWait();
-        if (result.get() == cardPayment) {
+        if (result.isPresent() && result.get() == cardPayment) {
+            try {
+                paymentsService.addPayment(tableNumber, PaymentType.Card,totalAmount);
+            } catch (ValidationException e) {
+                ExceptionAlert.showExceptionAlert(e.getMessage());
+                return false;
+            }
             cardPayment();
-            paymentsService.addPayment(tableNumber, PaymentType.Card,totalAmount);
             return true;
-        } else if (result.get() == cashPayment) {
+        } else if (result.isPresent() && result.get() == cashPayment) {
+            try {
+                paymentsService.addPayment(tableNumber, PaymentType.Cash,totalAmount);
+            } catch (ValidationException e) {
+                ExceptionAlert.showExceptionAlert(e.getMessage());
+                return false;
+            }
             cashPayment();
-            paymentsService.addPayment(tableNumber, PaymentType.Cash,totalAmount);
             return true;
         } else {
             cancelPayment();
