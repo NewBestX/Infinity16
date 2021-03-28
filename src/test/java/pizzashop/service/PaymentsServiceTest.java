@@ -2,6 +2,7 @@ package pizzashop.service;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import pizzashop.model.PaymentType;
 import pizzashop.repository.PaymentRepository;
 import pizzashop.validator.ValidationException;
@@ -9,6 +10,7 @@ import pizzashop.validator.ValidationException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 class PaymentsServiceTest {
     static PaymentRepository paymentRepository;
@@ -93,9 +95,70 @@ class PaymentsServiceTest {
         assert paymentRepository.getAll().size() == initialSize;
     }
 
+    @ParameterizedTest
+    @ValueSource(doubles = {0.1, Double.MAX_VALUE-1, Double.MAX_VALUE})
+    @DisplayName("BVA_VALID")
+    @Tag("7-8-9")
+    void tc5_bva_addPayment(double suma) {
 
+        int initialSize = paymentRepository.getAll().size();
+        try {
+            paymentsService.addPayment(1, PaymentType.Cash, suma);
+            assert true;
+        }catch (ValidationException e) {
+            assert false;
+        }
+        assert paymentRepository.getAll().size() == initialSize + 1;
+    }
 
+    @ParameterizedTest
+    @ValueSource(doubles = {-0.1, 0})
+    @DisplayName("BVA_INVALID")
+    @Timeout(value = 100, unit = TimeUnit.MILLISECONDS)
+    @Tag("5-6")
+    void tc6_bva_addPayment(double suma) {
 
+        int initialSize = paymentRepository.getAll().size();
+        try {
+            paymentsService.addPayment(1, PaymentType.Cash, suma);
+            assert false;
+        }catch (ValidationException e) {
+            assert e.getMessage().equals("Invalid payment amount");
+        }
+        assert paymentRepository.getAll().size() == initialSize;
+    }
 
+    @ParameterizedTest
+    @ValueSource(ints = {1,8})
+    @DisplayName("BVA_VALID")
+    @Tag("12-13")
+    void tc7_bva_addPayment(int table) {
+
+        int initialSize = paymentRepository.getAll().size();
+        try {
+            paymentsService.addPayment(table, PaymentType.Cash, 10);
+            assert true;
+        }catch (ValidationException e) {
+            assert false;
+        }
+        assert paymentRepository.getAll().size() == initialSize + 1;
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 9})
+    @DisplayName("BVA_INVALID")
+    @Tag("11-14")
+    @Timeout(value = 100, unit = TimeUnit.MILLISECONDS)
+    void tc8_bva_addPayment(int table) {
+
+        int initialSize = paymentRepository.getAll().size();
+        try {
+            paymentsService.addPayment(table, PaymentType.Cash, 10);
+            assert false;
+        }catch (ValidationException e) {
+            assert e.getMessage().equals("Invalid payment table number");
+        }
+        assert paymentRepository.getAll().size() == initialSize;
+    }
 
 }
