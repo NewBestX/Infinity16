@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class PaymentRepository {
-    private static String filename = "data/payments.txt";
+    private String filename = "data/payments.txt";
     private List<Payment> paymentList;
 
     public PaymentRepository(){
@@ -19,8 +19,15 @@ public class PaymentRepository {
         readPayments();
     }
 
+    public PaymentRepository(String filename) {
+        this.filename = filename;
+        this.paymentList = new ArrayList<>();
+        readPayments();
+    }
+
     private void readPayments(){
         ClassLoader classLoader = PaymentRepository.class.getClassLoader();
+
         File file = new File(classLoader.getResource(filename).getFile());
         BufferedReader br = null;
         try {
