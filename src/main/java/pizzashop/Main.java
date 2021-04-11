@@ -51,8 +51,8 @@ public class Main extends Application {
             Optional<ButtonType> result = exitAlert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.YES){
                 //Stage stage = (Stage) this.getScene().getWindow();
-                System.out.println("Incasari cash: "+paymentsService.getTotalAmount(PaymentType.Cash));
-                System.out.println("Incasari card: "+paymentsService.getTotalAmount(PaymentType.Card));
+                System.out.println("Incasari cash: "+paymentsService.getTotalAmount(paymentsService.getPayments(), PaymentType.Cash));
+                System.out.println("Incasari card: "+paymentsService.getTotalAmount(paymentsService.getPayments(), PaymentType.Card));
 
                 primaryStage.close();
             }

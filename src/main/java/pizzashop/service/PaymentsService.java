@@ -15,21 +15,25 @@ public class PaymentsService {
         this.payRepo = payRepo;
     }
 
-    public List<Payment> getPayments(){return payRepo.getAll(); }
+    public List<Payment> getPayments() {
+        return (payRepo != null) ? payRepo.getAll() : null;
+    }
 
     public void addPayment(int table, PaymentType type, double amount) throws ValidationException {
-        Payment payment= new Payment(table, type, amount);
+        Payment payment = new Payment(table, type, amount);
         PaymentValidator.validPayment(payment);
         payRepo.add(payment);
     }
 
-    public double getTotalAmount(PaymentType type){
-        double total=0.0f;
-        List<Payment> l=getPayments();
-        if (l==null || l.isEmpty()) return total;
-        for (Payment p:l){
+    public double getTotalAmount(List<Payment> l, PaymentType type) {
+        double total = 0.0f;
+        if (l == null)
+            return total;
+        if (l.isEmpty())
+            return total;
+        for (Payment p : l) {
             if (p.getType().equals(type))
-                total+=p.getAmount();
+                total += p.getAmount();
         }
         return total;
     }
