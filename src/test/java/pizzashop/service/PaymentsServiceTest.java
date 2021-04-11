@@ -3,6 +3,7 @@ package pizzashop.service;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import pizzashop.model.Payment;
 import pizzashop.model.PaymentType;
 import pizzashop.repository.PaymentRepository;
 import pizzashop.validator.ValidationException;
@@ -10,7 +11,11 @@ import pizzashop.validator.ValidationException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PaymentsServiceTest {
     static PaymentRepository paymentRepository;
@@ -161,4 +166,51 @@ class PaymentsServiceTest {
         assert paymentRepository.getAll().size() == initialSize;
     }
 
+
+    @Test
+    @Tag("TC1")
+    void getTotalAmount_NullList_Return0() {
+        List<Payment> l = null;
+        PaymentType type = PaymentType.Cash;
+
+        double rez = paymentsService.getTotalAmount(l, type);
+
+        assertEquals(0, rez);
+    }
+
+    @Test
+    @Tag("TC2")
+    void getTotalAmount_EmptyList_Return0() {
+        List<Payment> l = new ArrayList<>();
+        PaymentType type = PaymentType.Cash;
+
+        double rez = paymentsService.getTotalAmount(l, type);
+
+        assertEquals(0, rez);
+    }
+
+    @Test
+    @Tag("TC3")
+    void getTotalAmount_NoMatchingTypes_Return0() {
+        List<Payment> l = new ArrayList<>();
+        l.add(new Payment(1, PaymentType.Card, 10));
+        PaymentType type = PaymentType.Cash;
+
+        double rez = paymentsService.getTotalAmount(l, type);
+
+        assertEquals(0, rez);
+    }
+
+    @Test
+    @DisplayName("")
+    void getTotalAmount4() {
+
+
+    }
+    @Test
+    @DisplayName("")
+    void getTotalAmount5() {
+
+
+    }
 }
