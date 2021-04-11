@@ -35,9 +35,13 @@ class PaymentsServiceTest {
     }
 
     @AfterAll
-    static void finalTests(){
-        File file = new File("src/test/resources/data/paymentsTest.txt");
-        file.deleteOnExit();
+    static void finalTests() {
+        try {
+            FileWriter file = new FileWriter("src/test/resources/data/paymentsTest.txt");
+            file.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -49,7 +53,7 @@ class PaymentsServiceTest {
         try {
             paymentsService.addPayment(2, PaymentType.Cash, 23.55);
             assert true;
-        }catch (ValidationException e) {
+        } catch (ValidationException e) {
             assert false;
         }
         assert paymentRepository.getAll().size() == initialSize + 1;
@@ -64,7 +68,7 @@ class PaymentsServiceTest {
         try {
             paymentsService.addPayment(3, PaymentType.Cash, -17.4);
             assert false;
-        }catch (ValidationException e) {
+        } catch (ValidationException e) {
             assert e.getMessage().equals("Invalid payment amount");
         }
         assert paymentRepository.getAll().size() == initialSize;
@@ -79,7 +83,7 @@ class PaymentsServiceTest {
         try {
             paymentsService.addPayment(10, PaymentType.Cash, 10);
             assert false;
-        }catch (ValidationException e) {
+        } catch (ValidationException e) {
             assert e.getMessage().equals("Invalid payment table number");
         }
         assert paymentRepository.getAll().size() == initialSize;
@@ -94,14 +98,14 @@ class PaymentsServiceTest {
         try {
             paymentsService.addPayment(2, null, 10);
             assert false;
-        }catch (ValidationException e) {
+        } catch (ValidationException e) {
             assert e.getMessage().equals("Invalid payment type");
         }
         assert paymentRepository.getAll().size() == initialSize;
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {0.1, Double.MAX_VALUE-1, Double.MAX_VALUE})
+    @ValueSource(doubles = {0.1, Double.MAX_VALUE - 1, Double.MAX_VALUE})
     @DisplayName("BVA_VALID")
     @Tag("7-8-9")
     void tc5_bva_addPayment(double suma) {
@@ -110,7 +114,7 @@ class PaymentsServiceTest {
         try {
             paymentsService.addPayment(1, PaymentType.Cash, suma);
             assert true;
-        }catch (ValidationException e) {
+        } catch (ValidationException e) {
             assert false;
         }
         assert paymentRepository.getAll().size() == initialSize + 1;
@@ -127,14 +131,14 @@ class PaymentsServiceTest {
         try {
             paymentsService.addPayment(1, PaymentType.Cash, suma);
             assert false;
-        }catch (ValidationException e) {
+        } catch (ValidationException e) {
             assert e.getMessage().equals("Invalid payment amount");
         }
         assert paymentRepository.getAll().size() == initialSize;
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1,8})
+    @ValueSource(ints = {1, 8})
     @DisplayName("BVA_VALID")
     @Tag("12-13")
     void tc7_bva_addPayment(int table) {
@@ -143,7 +147,7 @@ class PaymentsServiceTest {
         try {
             paymentsService.addPayment(table, PaymentType.Cash, 10);
             assert true;
-        }catch (ValidationException e) {
+        } catch (ValidationException e) {
             assert false;
         }
         assert paymentRepository.getAll().size() == initialSize + 1;
@@ -160,7 +164,7 @@ class PaymentsServiceTest {
         try {
             paymentsService.addPayment(table, PaymentType.Cash, 10);
             assert false;
-        }catch (ValidationException e) {
+        } catch (ValidationException e) {
             assert e.getMessage().equals("Invalid payment table number");
         }
         assert paymentRepository.getAll().size() == initialSize;
@@ -212,6 +216,7 @@ class PaymentsServiceTest {
 
         assertEquals(10, rez);
     }
+
     @Test
     @Tag("TC5")
     void getTotalAmount_Iterations_Return15dot5() {
