@@ -202,15 +202,26 @@ class PaymentsServiceTest {
     }
 
     @Test
-    @DisplayName("")
-    void getTotalAmount4() {
+    @Tag("TC4")
+    void getTotalAmount_MatchingTypes_Return10() {
+        List<Payment> l = new ArrayList<>();
+        l.add(new Payment(1, PaymentType.Card, 10));
+        PaymentType type = PaymentType.Card;
 
+        double rez = paymentsService.getTotalAmount(l, type);
 
+        assertEquals(10, rez);
     }
     @Test
-    @DisplayName("")
-    void getTotalAmount5() {
+    @Tag("TC5")
+    void getTotalAmount_Iterations_Return15dot5() {
+        List<Payment> l = new ArrayList<>();
+        l.add(new Payment(1, PaymentType.Card, 10));
+        l.add(new Payment(2, PaymentType.Card, 5.5));
+        PaymentType type = PaymentType.Card;
 
+        double rez = paymentsService.getTotalAmount(l, type);
 
+        assertEquals(15.5, rez);
     }
 }
