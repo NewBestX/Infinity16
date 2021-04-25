@@ -1,6 +1,7 @@
 package pizzashop.repository;
 
 import pizzashop.model.MenuDataModel;
+import pizzashop.model.Payment;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -45,9 +46,31 @@ public class MenuRepository {
         return item;
     }
 
+    public void addMenuItem(MenuDataModel menuDataModel) {
+        listMenu.add(menuDataModel);
+        writeAll();
+    }
+
     public List<MenuDataModel> getMenu() {
         readMenu();//create a new menu for each table, on request
         return listMenu;
+    }
+
+    public void writeAll(){
+        ClassLoader classLoader = PaymentRepository.class.getClassLoader();
+        File file = new File(classLoader.getResource(filename).getFile());
+
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(file));
+            for (MenuDataModel m:listMenu) {
+                bw.write(m.toString());
+                bw.newLine();
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

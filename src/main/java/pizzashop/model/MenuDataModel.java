@@ -50,4 +50,8 @@ public class MenuDataModel {
     public void setPrice(Double price) {
         this.price.set(price);
     }
+
+    public String toString() {
+        return this.menuItem.get() + "," + this.price.get();
+    }
 }

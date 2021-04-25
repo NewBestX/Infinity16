@@ -12,5 +12,11 @@ public class MenuService {
         this.menuRepo = menuRepo;
     }
 
-    public List<MenuDataModel> getMenuData(){return menuRepo.getMenu();}
+    public List<MenuDataModel> getMenuData() {
+        return menuRepo.getMenu();
+    }
+
+    public void addMenuItem(MenuDataModel menuDataModel) {
+        menuRepo.addMenuItem(menuDataModel);
+    }
 }
