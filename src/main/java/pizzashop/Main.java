@@ -28,7 +28,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        MenuRepository repoMenu=new MenuRepository();
+        MenuRepository repoMenu=new MenuRepository("data/menu.txt");
         PaymentRepository payRepo= new PaymentRepository();
         MenuService menuService = new MenuService(repoMenu);
         PaymentsService paymentsService = new PaymentsService(payRepo);
